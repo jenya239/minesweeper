@@ -2,6 +2,9 @@
 <head>
 	<title>minesweeper</title>
 	<style type="text/css">
+		*{
+			font-family: arial;
+		}
 		html, body{
 			text-align: center;
 		}
@@ -11,16 +14,71 @@
 			width: 900px;
 			margin-top: 30px;
 		}
+		.area{
+			border: 2px solid green;
+			display: inline-block;
+		}
+		.area .row{
+			clear: both;
+		}
+		.area .row .cell{
+			width: 10px;
+			height: 10px;
+			border: 1px solid green;
+			float: left;
+			font-size: 10px;
+			font-family: Courier New;
+			align: center;
+			line-height: 10px;
+		}
+		.area .row .cell *{
+			vertical-align: middle;
+		}
+		.area:after {
+			content: "";
+			display: table;
+			clear: both;
+		}
 	</style>
 </head>
 <body>
 	<div class="container">
-		sdaf
-	</div>hb
+		minesweeper<br/>
+	</div>
+	<script type="text/javascript" src="jquery.js"></script>
 	<script type="text/javascript">
+		
+		var Minesweeper = function( width, height, mines ){
+			if( Minesweeper && Minesweeper._instance ){
+				throw 'singleton';
+			}
+			this._width = width;
+			this._height = height;
+			this._area = new Array( this._width ); //массив столбцов
+			for( var i = 0; i < this._width; i++ ){
+				this._area[ i ] = new Array( this._height );
+				for( var j = 0; j < this._height; j++ ){
+					this._area[ i ][ j ] = 0;
+				}
+			}
+			var done = 0;
+			while( done < mines ){
+				var x = Math.floor( Math.random() * this._width );
+				var y = Math.floor( Math.random() * this._height );
+				var type = this._area[ x ][ y ];
+				if( type == 0 ){
+					continue;
+				}
+			}
+		}
+
+		var width = 30, height = 20,
+			mines = 100;
+
+		var minesweeper = new Minesweeper( width, height, mines );
+
 		$container = $( '.container' );
 		function create_field(){
-			var width = 30, height = 20;
 			$area = $( '<div/>', {
 				class: 'area'
 			} );
@@ -31,7 +89,7 @@
 				for( var x = 0; x < width; x++ ){
 					$cell = $( '<div/>', {
 						class: 'cell'
-					} );
+					} ).html( minesweeper._area[ x ][ y ] );
 					$row.append( $cell );
 				}
 				$area.append( $row );
