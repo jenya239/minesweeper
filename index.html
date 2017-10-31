@@ -1,0 +1,44 @@
+<html>
+<head>
+	<title>minesweeper</title>
+	<style type="text/css">
+		html, body{
+			text-align: center;
+		}
+		.container{
+			margin-left: auto;
+			margin-right: auto;
+			width: 900px;
+			margin-top: 30px;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		sdaf
+	</div>hb
+	<script type="text/javascript">
+		$container = $( '.container' );
+		function create_field(){
+			var width = 30, height = 20;
+			$area = $( '<div/>', {
+				class: 'area'
+			} );
+			for( var y = 0; y < height; y++ ){
+				$row = $( '<div/>', {
+					class: 'row'
+				} );
+				for( var x = 0; x < width; x++ ){
+					$cell = $( '<div/>', {
+						class: 'cell'
+					} );
+					$row.append( $cell );
+				}
+				$area.append( $row );
+			}
+			return $area;
+		}
+		$container.append( create_field() );
+	</script>
+</body>
+</html>
